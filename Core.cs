@@ -3,12 +3,10 @@ using HarmonyLib;
 using ScheduleOne.UI.Shop;
 using ScheduleOne.ObjectScripts;
 using UnityEngine;
-using MelonLoader.Utils;
 using S1API.Entities;
 using System.Collections;
 using Response = S1API.Messaging.Response;
 using Player = ScheduleOne.PlayerScripts.Player;
-using ScheduleOne.Messaging;
 using System.Reflection;
 
 [assembly: MelonInfo(typeof(Toileportation.Core), "Toileportation", "1.0.0", "weedeej", null)]

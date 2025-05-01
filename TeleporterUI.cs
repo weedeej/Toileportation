@@ -2,14 +2,9 @@
 using ScheduleOne;
 using ScheduleOne.DevUtilities;
 using ScheduleOne.PlayerScripts;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Numerics;
-using System.Text;
 using UnityEngine;
 using UnityEngine.UIElements;
-using static UnityEngine.Rendering.VirtualTexturing.Debugging;
 
 namespace Toileportation
 {
