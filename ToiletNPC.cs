@@ -1,5 +1,5 @@
 ﻿using S1API.Entities;
-using ScheduleOne;
+using Il2CppScheduleOne;
 
 namespace Toileportation
 {

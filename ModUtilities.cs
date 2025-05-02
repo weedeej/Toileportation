@@ -1,4 +1,4 @@
-﻿using ScheduleOne.EntityFramework;
+﻿using Il2CppScheduleOne.EntityFramework;
 using UnityEngine;
 
 namespace Toileportation

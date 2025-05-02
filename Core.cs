@@ -1,13 +1,16 @@
 ﻿using MelonLoader;
 using HarmonyLib;
-using ScheduleOne.UI.Shop;
-using ScheduleOne.ObjectScripts;
 using UnityEngine;
 using S1API.Entities;
 using System.Collections;
+using Il2CppScheduleOne.UI.Shop;
+using Il2CppScheduleOne.ObjectScripts;
 using Response = S1API.Messaging.Response;
-using Player = ScheduleOne.PlayerScripts.Player;
-using System.Reflection;
+using Player = Il2CppScheduleOne.PlayerScripts.Player;
+using S1NPC = Il2CppScheduleOne.NPCs.NPC;
+using S1NPCManager = Il2CppScheduleOne.NPCs.NPCManager;
+using MemoryStream = System.IO.MemoryStream;
+using Stream = System.IO.Stream;
 
 [assembly: MelonInfo(typeof(Toileportation.Core), "Toileportation", "1.0.0", "weedeej", null)]
 [assembly: MelonGame("TVGS", "Schedule I")]
@@ -76,30 +79,50 @@ namespace Toileportation {
         private static IEnumerator HideConversation()
         {
             yield return new WaitForSeconds(5f);
-            var toiletNPC = ScheduleOne.NPCs.NPCManager.NPCRegistry.Find((npc) => npc.FirstName == "Golden" && npc.LastName == "Toilet");
-            toiletNPC.MSGConversation.SetEntryVisibility(false);
+            foreach (S1NPC npc in S1NPCManager.NPCRegistry)
+            {
+                if (npc.FirstName == "Golden" && npc.LastName == "Toilet")
+                    npc.MSGConversation.SetEntryVisibility(false);
+            }
         }
 
         private static IEnumerator HideResponses()
         {
             yield return new WaitForSeconds(10f);
-            var toiletNPC = ScheduleOne.NPCs.NPCManager.NPCRegistry.Find((npc) => npc.FirstName == "Golden" && npc.LastName == "Toilet");
-            toiletNPC.MSGConversation.SetResponseContainerVisible(false);
+            foreach (S1NPC npc in S1NPCManager.NPCRegistry)
+            {
+                if (npc.FirstName == "Golden" && npc.LastName == "Toilet")
+                    npc.MSGConversation.SetResponseContainerVisible(false);
+            }
         }
     }
     public class Core : MelonMod
     {
-        AssetBundle bundle;
+        Il2CppAssetBundle bundle;
         public override void OnInitializeMelon()
         {
-            var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Toileportation.toiletportation.bundle");
-
-            if (stream == null)
+            try
             {
-                this.Unregister($"AssetBundle stream not found");
+                Stream bundleStream = MelonAssembly.Assembly.GetManifestResourceStream("Toileportation.toiletportation.bundle");
+                if (bundleStream == null)
+                {
+                    this.Unregister($"AssetBundle stream not found");
+                    return;
+                }
+                byte[] bundleData;
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    bundleStream.CopyTo(ms);
+                    bundleData = ms.ToArray();
+                }
+                Il2CppSystem.IO.Stream stream = new Il2CppSystem.IO.MemoryStream(bundleData);
+                bundle = Il2CppAssetBundleManager.LoadFromStream(stream);
+            } catch (Exception e)
+            {
+                this.Unregister($"Failed to load AssetBundle. Please report to dev: {e}");
                 return;
             }
-            bundle = AssetBundle.LoadFromStream(stream);
+            LoggerInstance.Msg("Initialized Toileportation");
         }
     }
 }

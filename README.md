@@ -19,7 +19,7 @@ Allows you to use the power of the Golden Throne
 
 ## Installation
 
-1.  **Prerequisites:** Ensure you have the base game's alternate branch (mono) installed and [Melon Loader](https://melonwiki.xyz/) and [S1API (Mono)](https://thunderstore.io/c/schedule-i/p/KaBooMa/S1API/).
+1.  **Prerequisites:** Ensure you know the branch of your your Schedule I installation and [Melon Loader](https://melonwiki.xyz/) and [S1API](https://thunderstore.io/c/schedule-i/p/KaBooMa/S1API/).
 2.  **Download:** Download the latest version of the mod from [releases](https://github.com/weedeej/Toileportation/releases/latest).
 3.  **Installation:** Extract the Mods folder into your game's root directory.
 
