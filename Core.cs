@@ -19,24 +19,25 @@ namespace Toileportation {
     {
         public static void Postfix(ShopListing __instance)
         {
-            if (__instance.Item.Name != "Golden Toilet") return;
-            __instance.Item.Description = "The lost artifact of Zaza.\nWho knows what power resides... \n(Stock resets every week)";
-            __instance.OverriddenPrice = 80000f;
-            __instance.OverridePrice = true;
-            __instance.DefaultStock = 2;
-            __instance.RestockRate = ShopListing.ERestockRate.Weekly;
-            __instance.SetStock(2, true);
-            MelonLogger.Msg("Patched Golden Toilet successfully!");
+            if (__instance.name == null) return;
+            if (!__instance.name.Contains("Golden Toilet")) return;
+            try
+            {
+                __instance.Item.Description = "The lost artifact of Zaza.\nWho knows what power resides... \n(Stock resets every week)";
+                __instance.OverriddenPrice = 80000f;
+                __instance.OverridePrice = true;
+                __instance.DefaultStock = 2;
+                __instance.RestockRate = ShopListing.ERestockRate.Weekly;
+                __instance.SetStock(2, true);
+                MelonLogger.Msg("Patched Golden Toilet successfully!");
+            }
+            catch (Exception e)
+            {
+                MelonLogger.Error($"Failed to patch Golden Toilet: {e}");
+            }
         }
     }
-    [HarmonyPatch(typeof(ShopListing), nameof(ShopListing.Restock))]
-    public static class GoldenToiletRestockPatch
-    {
-        public static void Postfix(ShopListing __instance)
-        {
-            if (__instance.Item.Name != "Golden Toilet") return;
-        }
-    }
+
     [HarmonyPatch(typeof(Toilet), nameof(Toilet.Interacted))]
     public static class ToiletFlushPatch
     {

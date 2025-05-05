@@ -11,7 +11,8 @@ namespace Toileportation
     public class TeleporterUI
     {
         AssetBundle bundle = null;
-        public void ShowTeleportationUI()
+
+        public TeleporterUI()
         {
             var loadedBundles = AssetBundle.GetAllLoadedAssetBundles().ToList();
             foreach (var loaded in loadedBundles)
@@ -22,6 +23,10 @@ namespace Toileportation
                     break;
                 }
             }
+        }
+
+        public void ShowTeleportationUI()
+        {
             MelonCoroutines.Start(ShowUICoro());
         }
 
