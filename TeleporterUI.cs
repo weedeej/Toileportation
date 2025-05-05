@@ -12,7 +12,8 @@ namespace Toileportation
     public class TeleporterUI
     {
         Il2CppAssetBundle bundle = null;
-        public void ShowTeleportationUI()
+
+        public TeleporterUI()
         {
             var loadedBundles = Il2CppAssetBundleManager.GetAllLoadedAssetBundles().ToArray();
             if (loadedBundles.Length == 1) bundle = loadedBundles[0];
@@ -27,6 +28,10 @@ namespace Toileportation
                     }
                 }
             }
+        }
+
+        public void ShowTeleportationUI()
+        {
             MelonCoroutines.Start(ShowUICoro());
         }
 
